@@ -61,3 +61,7 @@
 [submodule "packages/OpenArtemis"]
 	path = packages/OpenArtemis
 	url = https://github.com/luxiaoling-mc/openartemis.git
+
+[submodule "packages/Art3m1sCore"]
+	path = packages/Art3m1sCore
+	url = https://github.com/Alphaly2K/art3m1s-core.git

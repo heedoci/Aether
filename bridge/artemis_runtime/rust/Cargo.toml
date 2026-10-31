@@ -1,0 +1,16 @@
+[package]
+name = "aether_artemis_bridge"
+version = "0.1.0"
+edition = "2024"
+publish = false
+license = "GPL-3.0-only"
+
+[lib]
+crate-type = ["staticlib"]
+
+[dependencies]
+art3m1s-core = { path = "../../../packages/Art3m1sCore", default-features = false, features = ["metal-backend"] }
+
+[profile.release]
+panic = "abort"
+lto = false
