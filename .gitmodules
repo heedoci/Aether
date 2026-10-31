@@ -57,3 +57,7 @@
 	path = packages/EntisGLS-SDL3
 	url = https://github.com/AetherKiri/EntisGLS-SDL3.git
 	branch = aether
+
+[submodule "packages/OpenArtemis"]
+	path = packages/OpenArtemis
+	url = https://github.com/luxiaoling-mc/openartemis.git
