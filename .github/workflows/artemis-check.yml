@@ -1,0 +1,29 @@
+name: Artemis C++ adapter check
+on:
+  push:
+    branches:
+      - feature/art3m1s-check
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+      - name: Check Artemis runtime provider C++17 ABI syntax
+        run: |
+          set -euo pipefail
+          g++ -std=c++17 -Wall -Wextra -Werror -fsyntax-only \
+              -I abi/include bridge/artemis_runtime/src/artemis_runtime_provider.cpp
+      - name: Validate Artemis integration references
+        run: |
+          set -euo pipefail
+          grep -Fq 'aetherkiri_artemis_register_runtime_provider()' bridge/godot_extension/src/aether_runtime_player.cpp
+          grep -Fq 'aether_artemis_rust' bridge/godot_extension/CMakeLists.txt
+          grep -Fq 'RUNTIME_ARTEMIS' apps/godot_app/scripts/main.gd
+          test -f bridge/artemis_runtime/rust/src/lib.rs
