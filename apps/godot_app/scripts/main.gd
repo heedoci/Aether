@@ -2070,6 +2070,7 @@ const POINTER_MOD_MIDDLE := 0x20
 const POINTER_MOD_CANCEL := 1 << 30
 const KEY_MOD_CONTROL := 0x04
 const RUNTIME_KIRIKIRI := "kirikiri"
+const RUNTIME_ARTEMIS := "artemis"
 const RUNTIME_ONSCRIPTER := "onscripter"
 const RUNTIME_MINORI := "minori"
 const RUNTIME_SOFTPAL := "softpal"
@@ -12555,7 +12556,9 @@ func _switch_runtime_player(runtime_kind: String) -> bool:
             diagnostic_session.finish()
         diagnostic_session.start(player, selected_backend)
     _append_log("Runtime selected: %s" % (
-        "AliceSoft System 1/2/3"
+        "Artemis / Art3m1s"
+        if normalized == RUNTIME_ARTEMIS
+        else "AliceSoft System 1/2/3"
         if normalized == RUNTIME_SYSTEM3
         else "AliceSoft System 3.5/3.9"
         if normalized == RUNTIME_XSYSTEM35
