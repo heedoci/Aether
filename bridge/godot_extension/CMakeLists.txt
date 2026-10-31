@@ -312,6 +312,10 @@ if(TARGET aether_minori_runtime)
     target_compile_definitions(aether_kiri_godot PRIVATE
         AETHERKIRI_WITH_MINORI=1)
 endif()
+if(TARGET aether_artemis_runtime)
+    target_link_libraries(aether_kiri_godot PRIVATE aether_artemis_runtime)
+    target_compile_definitions(aether_kiri_godot PRIVATE AETHERKIRI_WITH_PUBLIC_ARTEMIS=1)
+endif()
 if(IOS)
     # Godot links this static extension archive directly into the app; it
     # does not follow CMake target dependencies. Include the isolated Swift
@@ -332,6 +336,11 @@ if(IOS)
     if(TARGET aether_minori_runtime)
         list(APPEND AETHERKIRI_IOS_ARCHIVES
             "$<TARGET_FILE:aether_minori_runtime>")
+    endif()
+    if(TARGET aether_artemis_runtime)
+        list(APPEND AETHERKIRI_IOS_ARCHIVES
+            "$<TARGET_FILE:aether_artemis_runtime>"
+            "$<TARGET_FILE:aether_artemis_rust>")
     endif()
     get_property(_private_runtime_targets GLOBAL
         PROPERTY AETHERKIRI_PRIVATE_RUNTIME_TARGETS)

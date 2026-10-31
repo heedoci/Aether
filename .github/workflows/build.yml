@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - feature/art3m1s-runtime
   pull_request:
     paths-ignore:
       - 'doc/**'
@@ -447,6 +448,7 @@ jobs:
           git submodule update --init --recursive --depth 1 packages/psdfile
           git submodule update --init --depth 1 packages/AetherSiglus
           git submodule update --init --depth 1 packages/AetherMinori
+          git submodule update --init --depth 1 packages/Art3m1sCore
           git submodule update --init --depth 1 packages/EntisGLS-SDL3
           git submodule update --init --depth 1 packages/AetherKrkr
           git submodule update --init --depth 1 packages/AetherMAGES

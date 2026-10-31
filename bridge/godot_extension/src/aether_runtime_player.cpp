@@ -41,6 +41,9 @@ extern "C" engine_result_t aetherkiri_minori_register_runtime_provider();
 #if defined(AETHERKIRI_WITH_SOFTPAL)
 extern "C" void AetherSoftPalRegisterRuntime(void);
 #endif
+#if defined(AETHERKIRI_WITH_PUBLIC_ARTEMIS)
+extern "C" engine_result_t aetherkiri_artemis_register_runtime_provider();
+#endif
 #if defined(AETHERKIRI_INTERNAL_RUNTIME_PROVIDERS)
 void RegisterAetherInternalRuntimeProviders();
 #endif
@@ -14160,6 +14163,11 @@ void InitializeAetherRuntime(ModuleInitializationLevel level) {
 #endif
 #if defined(AETHERKIRI_INTERNAL_RUNTIME_PROVIDERS)
     RegisterAetherInternalRuntimeProviders();
+#endif
+#if defined(AETHERKIRI_WITH_PUBLIC_ARTEMIS)
+    if (aetherkiri_artemis_register_runtime_provider() != ENGINE_RESULT_OK) {
+        UtilityFunctions::printerr("Failed to register public Artemis runtime provider");
+    }
 #endif
 #if defined(AETHERKIRI_WITH_RFVP)
     aetherkiri::rfvp::RegisterRuntimeProvider();

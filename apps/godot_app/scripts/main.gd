@@ -12506,6 +12506,7 @@ func _create_runtime_player(runtime_kind: String = RUNTIME_KIRIKIRI) -> bool:
 func _switch_runtime_player(runtime_kind: String) -> bool:
     var normalized := runtime_kind
     if normalized not in [
+        RUNTIME_ARTEMIS,
         RUNTIME_ONSCRIPTER,
         RUNTIME_MINORI,
         RUNTIME_CATSYSTEM2,
