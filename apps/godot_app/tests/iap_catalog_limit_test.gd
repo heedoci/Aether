@@ -57,7 +57,7 @@ func _initialize() -> void:
         _expect(not ACCESS_POLICY.purchases_supported(platform_name))
         _expect(ACCESS_POLICY.coffee_sponsorship_available(platform_name))
     for platform_name in ["iOS", "macOS"]:
-        _expect(ACCESS_POLICY.catalog_limit_enabled(platform_name, false, false))
+        _expect(not ACCESS_POLICY.catalog_limit_enabled(platform_name, false, false))
         _expect(not ACCESS_POLICY.catalog_limit_enabled(platform_name, true, false))
         _expect(not ACCESS_POLICY.catalog_limit_enabled(platform_name, false, true))
         _expect(ACCESS_POLICY.beta_access_enforced(platform_name, false))

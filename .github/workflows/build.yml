@@ -58,13 +58,13 @@ env:
   # GitHub does not expose repository secrets to fork or Dependabot pull
   # requests. Trusted runs build the complete internal product; untrusted
   # pull requests retain the public fallback without exposing the SSH key.
-  AETHERKIRI_WITH_INTERNAL: ${{ github.event_name != 'pull_request' || (github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]') }}
+  AETHERKIRI_WITH_INTERNAL: 'false'
   # Forward the checkout decision to build.sh so a stale or partial package
   # checkout cannot accidentally enable private extensions in public builds.
-  AETHERKIRI_ENABLE_INTERNAL: ${{ github.event_name != 'pull_request' || (github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]') }}
+  AETHERKIRI_ENABLE_INTERNAL: 'false'
   # Trusted same-repository changes may populate the package cache. Fork and
   # Dependabot pull requests receive read-only package access.
-  AETHERKIRI_VCPKG_CACHE_WRITE: ${{ github.event_name != 'pull_request' || (github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]') }}
+  AETHERKIRI_VCPKG_CACHE_WRITE: 'false'
   AETHERKIRI_RELEASE_VERSION: ${{ inputs.release_version || '' }}
   AETHERKIRI_BUILD_NUMBER: ${{ inputs.release_build_number || github.run_number }}
   AETHERKIRI_BUILD_ATTEMPT: ${{ github.run_attempt }}
@@ -75,7 +75,8 @@ jobs:
   android:
     # Upstream bot candidates run only the secretless RFVP provider checks.
     if: >-
-      ${{ !startsWith(github.head_ref, 'rfvp-update/') &&
+      ${{ github.repository != 'heedoci/Aether' &&
+          !startsWith(github.head_ref, 'rfvp-update/') &&
           !startsWith(github.ref_name, 'rfvp-update/') &&
           github.event.pull_request.user.login != 'github-actions[bot]' }}
     name: Build Android App
@@ -709,7 +710,8 @@ jobs:
   macos:
     # Upstream bot candidates run only the secretless RFVP provider checks.
     if: >-
-      ${{ !startsWith(github.head_ref, 'rfvp-update/') &&
+      ${{ github.repository != 'heedoci/Aether' &&
+          !startsWith(github.head_ref, 'rfvp-update/') &&
           !startsWith(github.ref_name, 'rfvp-update/') &&
           github.event.pull_request.user.login != 'github-actions[bot]' }}
     name: Build macOS App
@@ -1098,7 +1100,8 @@ jobs:
   linux:
     # Upstream bot candidates run only the secretless RFVP provider checks.
     if: >-
-      ${{ !startsWith(github.head_ref, 'rfvp-update/') &&
+      ${{ github.repository != 'heedoci/Aether' &&
+          !startsWith(github.head_ref, 'rfvp-update/') &&
           !startsWith(github.ref_name, 'rfvp-update/') &&
           github.event.pull_request.user.login != 'github-actions[bot]' }}
     name: Build Linux App (${{ matrix.arch }})
