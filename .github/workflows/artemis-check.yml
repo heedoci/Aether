@@ -27,3 +27,20 @@ jobs:
           grep -Fq 'aether_artemis_rust' bridge/godot_extension/CMakeLists.txt
           grep -Fq 'RUNTIME_ARTEMIS' apps/godot_app/scripts/main.gd
           test -f bridge/artemis_runtime/rust/src/lib.rs
+
+  rust-ios:
+    name: Rust Artemis bridge iOS cross-check
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+      - name: Checkout public Art3m1s core
+        run: git submodule update --init --depth 1 packages/Art3m1sCore
+      - name: Install Rust iOS target
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-ios
+      - name: Check Rust Artemis bridge for iPhone
+        run: |
+          cargo check --manifest-path bridge/artemis_runtime/rust/Cargo.toml --target aarch64-apple-ios
